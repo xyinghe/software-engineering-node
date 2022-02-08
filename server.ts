@@ -11,7 +11,6 @@ const DB_PASSWORD = process.env.DB_PASSWORD;
 const connectionString = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(connectionString);
 
-// mongoose.connect('mongodb://localhost:27017/users-db');
 // create RESTful Web service API
 const app = express();
 app.use(express.json());
