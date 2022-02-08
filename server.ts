@@ -1,14 +1,11 @@
 import express,{Request, Response} from 'express';
-import dotenv from 'dotenv';
 import UserController from "./controllers/UserController";
 import TuitController from "./controllers/TuitController";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
-dotenv.config();
 // connect to the database
 
-const connectionString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
-mongoose.connect(connectionString);
+
+mongoose.connect(`mongodb+srv://xyinghe:node123@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
 
 // create RESTful Web service API
 
