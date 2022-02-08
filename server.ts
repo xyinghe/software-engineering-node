@@ -1,19 +1,20 @@
 import express,{Request, Response} from 'express';
-import dotenv from "dotenv"
+import dotenv from 'dotenv';
 import UserController from "./controllers/UserController";
 import TuitController from "./controllers/TuitController";
 import mongoose from "mongoose";
-
-// connect to the database
+import bodyParser from "body-parser";
 dotenv.config();
-const DB_USERNAME = process.env.DB_USERNAME;
-const DB_PASSWORD = process.env.DB_PASSWORD;
-const connectionString = `mongodb+srv://${DB_USERNAME}:${DB_PASSWORD}@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+// connect to the database
+
+const connectionString = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 mongoose.connect(connectionString);
 
 // create RESTful Web service API
+
 const app = express();
 app.use(express.json());
+
 
 app.get('/', (req: Request, res: Response) =>
     res.send('Welcome!'));
