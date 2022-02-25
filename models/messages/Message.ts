@@ -1,3 +1,7 @@
+/**
+ * @file Declares message data type representing relationship between
+ * users, as in user sends message to another user
+ */
 import User from "../users/User"
 /**
  * @typedef Message Represents messages relationship between two users

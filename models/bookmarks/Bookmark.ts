@@ -1,4 +1,3 @@
-
 /**
  * @file Declares Bookmark data type representing relationship between
  * users and tuits, as in user bookmarks a tuit
@@ -12,7 +11,6 @@ import Tuit from "../tuits/Tuit";
  * @property {Tuit} bookmarkedTuit Tuit being bookmarked
  * @property {User} bookmarkedBy User bookmarks the tuit
  */
-
 
 export default interface Bookmark {
     bookmarkedTuit: Tuit,
