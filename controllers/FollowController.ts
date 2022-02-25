@@ -12,7 +12,7 @@ import Follow from "../models/follows/Follow";
  * <ul>
  *     <li> POST /api/users/:uid/follows/:uid2 to record user follows another user
  *     </li>
- *     <li> DELETE /api/users/:uid/unfollows/:uid2 to record user unfollows another user
+ *     <li> DELETE /api/users/:uid/follows/:uid2 to record user unfollows another user
  *     </li>
  *     <li> GET /api/users/:uid/following to retrieve a user's following list
  *     </li>
@@ -37,7 +37,7 @@ export default class FollowController implements FollowControllerI {
         if (FollowController.followController === null) {
             FollowController.followController = new FollowController();
             app.post('/api/users/:uid/follows/:uid2', FollowController.followController.userFollowsAnotherUser);
-            app.delete('/api/users/:uid/unfollows/:uid2', FollowController.followController.userUnfollowsAnotherUser);
+            app.delete('/api/users/:uid/follows/:uid2', FollowController.followController.userUnfollowsAnotherUser);
             app.get('/api/users/:uid/following', FollowController.followController.findAllFollowing);
             app.get('/api/users/:uid/follower', FollowController.followController.findAllFollowers);
         }
