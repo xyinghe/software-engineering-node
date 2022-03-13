@@ -73,7 +73,7 @@ export default class TuitController implements TuitControllerI {
      * body formatted as JSON arrays containing the tuit objects
      */
     findTuitsByUser = (req: Request, res: Response) =>
-        TuitController.tuitDao.findTuitsByUser(req.params.uid)
+        TuitController.tuitDao.findAllTuitsByUser(req.params.uid)
             .then((tuit: Tuit[]) => res.json(tuit));
 
 

@@ -32,25 +32,31 @@ export default class TuitDao implements TuitDaoI {
      * @returns Promise To be notified when the tuits are retrieved from
      * database
      */
-    findAllTuits = async(): Promise<Tuit[]> =>
-        TuitModel.find().exec();
-
+    findAllTuits = async (): Promise<Tuit[]> =>
+        TuitModel.find()
+            .populate("postedBy")
+            .exec();
     /**
      * Uses TuitModel to retrieve all tuit document tuited by one user from tuits collection
      * @param {string} uid User's primary key
      * @returns Promise To be notified when user is retrieved from the database
      */
-    findTuitsByUser = async(uid: string): Promise<Tuit[]> =>
-        TuitModel.find({postedBy: uid});
+    findAllTuitsByUser = async (uid: string): Promise<Tuit[]> =>
+        TuitModel.find({postedBy: uid})
+            .populate("postedBy")
+            .exec();
 
     /**
      * Uses TuitModel to retrieve single tuit document from tuits collection
      * @param {string} tid Tuit's primary key
      * @returns Promise To be notified when user is retrieved from the database
      */
-    findTuitById = async(tid: string): Promise<Tuit> =>
-        TuitModel.findById(tid).populate("postedBy").exec();
-
+    // findTuitById = async(tid: string): Promise<Tuit> =>
+    //     TuitModel.findById(tid).populate("postedBy").exec();
+    findTuitById = async (uid: string): Promise<any> =>
+        TuitModel.findById(uid)
+            .populate("postedBy")
+            .exec();
     /**
      * Inserts tuit instance by a user into the database
      * @param {string} uid User's primary key

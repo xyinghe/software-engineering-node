@@ -31,11 +31,22 @@ export default class UserController implements UserControllerI {
     public static getInstance = (app: Express): UserController => {
         if (UserController.userController === null) {
             UserController.userController = new UserController();
+            app.post("/api/login", UserController.userController.login);
             app.get('/api/users', UserController.userController.findAllUsers);
             app.get('/api/users/:uid', UserController.userController.findUserById);
             app.post('/api/users', UserController.userController.createUser);
             app.delete('/api/users/:uid', UserController.userController.deleteUser);
             app.put('/api/users/:uid', UserController.userController.updateUser);
+
+            // // for testing. Not RESTful
+            // app.get("/api/users/create",
+            //     UserController.userController.createUser);
+            // app.get("/api/users/id/:uid/delete",
+            //     UserController.userController.deleteUser);
+            // app.get("/api/users/username/:username/delete",
+            //     UserController.userController.deleteUsersByUsername);
+            // app.get("/api/users/delete",
+            //     UserController.userController.deleteAllUsers);
         }
         return UserController.userController;
     }
@@ -96,5 +107,18 @@ export default class UserController implements UserControllerI {
     updateUser = (req: Request, res: Response) =>
         UserController.userDao.updateUser(req.params.uid, req.body)
             .then((status) => res.send(status));
+
+    deleteAllUsers = (req: Request, res: Response) =>
+        UserController.userDao.deleteAllUsers()
+            .then((status) => res.send(status));
+
+
+    deleteUsersByUsername = (req: Request, res: Response) =>
+        UserController.userDao.deleteUsersByUsername(req.params.username)
+            .then(status => res.send(status));
+
+    login = (req: Request, res: Response) =>
+        UserController.userDao
+            .findUserByCredentials(req.body.username, req.body.password)
 
 };
