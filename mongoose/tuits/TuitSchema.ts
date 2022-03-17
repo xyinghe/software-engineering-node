@@ -1,14 +1,5 @@
-/**
- * @file Implements the data model to represent tuits in the database
- */
-import mongoose,{Schema} from "mongoose";
+import mongoose, {Schema} from "mongoose";
 import Tuit from "../../models/tuits/Tuit";
-/**
- * @typedef TuitSchema Data model to represent tuits in the database
- * @property {string} tuit Content of the tuit
- * @property {Date} postedOn tuit posted time
- * @property {ObjectId} postedBy the user who posts the tuit
- */
 const TuitSchema = new mongoose.Schema<Tuit>({
     tuit: {type: String, required: true},
     postedBy: {type: Schema.Types.ObjectId, ref: "UserModel"},

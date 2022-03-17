@@ -34,12 +34,22 @@ export default class TuitController implements TuitControllerI {
     public static getInstance = (app: Express) => {
         if (TuitController.tuitController === null) {
             TuitController.tuitController = new TuitController();
+            // RESTful User Web service API
             app.get('/api/tuits', TuitController.tuitController.findAllTuits);
             app.get('/api/tuits/:tid', TuitController.tuitController.findTuitById);
             app.get('/api/users/:uid/tuits', TuitController.tuitController.findTuitsByUser);
             app.post("/api/users/:uid/tuits", TuitController.tuitController.createTuitByUser);
             app.delete('/api/tuits/:tid', TuitController.tuitController.deleteTuit);
-            app.put('/api/tuits/:tid', TuitController.tuitController.updateTuit)
+            app.put('/api/tuits/:tid', TuitController.tuitController.updateTuit);
+            app.delete('/api/tuits/deleteByContent/:content', TuitController.tuitController.deleteTuitByContent)
+
+            // //// for testing. Not RESTful
+            // app.get("/api/tuits", TuitController.tuitController.tuitfindAllTuits);
+            // app.get("/api/users/:uid/tuits", TuitController.tuitController.findAllTuitsByUser);
+            // app.get("/api/tuits/:uid", TuitController.tuitController.findTuitById);
+            // app.post("/api/users/:uid/tuits", createTuitByUser);
+            // app.put("/api/tuits/:uid", updateTuit);
+            // app.delete("/api/tuits/:uid", deleteTuit);
         }
     }
 
@@ -108,4 +118,9 @@ export default class TuitController implements TuitControllerI {
     deleteTuit = (req: Request, res: Response) =>
         TuitController.tuitDao.deleteTuit(req.params.tid)
             .then(status => res.json(status))
+
+    deleteTuitByContent = (req: Request, res: Response) => {
+        TuitController.tuitDao.deleteTuitByContent(req.params.content)
+            .then(status => res.json(status))
+    }
 }

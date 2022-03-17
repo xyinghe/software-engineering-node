@@ -53,8 +53,8 @@ export default class TuitDao implements TuitDaoI {
      */
     // findTuitById = async(tid: string): Promise<Tuit> =>
     //     TuitModel.findById(tid).populate("postedBy").exec();
-    findTuitById = async (uid: string): Promise<any> =>
-        TuitModel.findById(uid)
+    findTuitById = async (tid: string): Promise<any> =>
+        TuitModel.findById(tid)
             .populate("postedBy")
             .exec();
     /**
@@ -82,4 +82,8 @@ export default class TuitDao implements TuitDaoI {
      */
     deleteTuit = async(tid: string): Promise<any> =>
         TuitModel.deleteOne(({_id:tid}))
+
+    deleteTuitByContent = async (content: string): Promise<any> =>
+        TuitModel.deleteMany({tuit: content})
+
 }

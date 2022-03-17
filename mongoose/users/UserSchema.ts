@@ -2,6 +2,7 @@
  * @file Implements the data model to represent users in the database
  */
 import mongoose from "mongoose";
+import User from "../../models/users/User"
 /**
  * @typedef UserSchema Data model to represent users in the database
  * @property {string} username User's username
@@ -18,22 +19,23 @@ import mongoose from "mongoose";
  * @property {Date} joined User's joined date
  * @property {LocationSchema} location User's location
  */
-const UserSchema = new mongoose.Schema({
-    username: {type: String, required: true},
-    password: {type: String, required: true},
+const UserSchema = new mongoose.Schema<User>({
+    username: {type: String, required: true, default: `testusername${Date.now()}`},
+    password: {type: String, required: true, default: `testpassword${Date.now()}`},
     firstName: String,
     lastName: String,
-    email: String,
+    email: {type: String, required: true, default: `testemail${Date.now()}`},
     profilePhoto: String,
     headerImage: String,
-    accountType: {type: String, default: 'PERSONAL', enum: ['PERSONAL', 'ACADEMIC', 'PROFESSIONAL']},
-    maritalStatus: {type: String, default: 'SINGLE', enum: ['MARRIED', 'SINGLE', 'WIDOWED']},
     biography: String,
     dateOfBirth: Date,
-    joined: {type: Date, default: Date.now},
+    accountType: {type: String, enum: ["PERSONAL", "ACADEMIC", "PROFESSIONAL"]},
+    maritalStatus: {type: String, enum: ["MARRIED", "SINGLE", "WIDOWED"]},
     location: {
-        latitude: {type: Number, default: 0.0},
-        longitude: {type: Number, default: 0.0},
-    }
-}, {collection: 'users'});
+        latitude: Number,
+        longitude: Number
+    },
+    salary: {type: Number, default: 50000}
+}, {collection: "users"});
+
 export default UserSchema;
