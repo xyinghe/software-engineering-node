@@ -93,23 +93,25 @@ export default class DislikeController implements DislikeControllerI {
      * body formatted as JSON arrays containing the tuit objects that were liked
      */
     findAllTuitsDislikedByUser = (req: Request, res: Response) =>
-        DislikeController.dislikeDao.findAllTuitsDislikedByUser(req.params.uid)
-            .then(dislikes => res.json(dislikes));
-    // findAllTuitsLikedByUser = (req:Request, res:Response) => {
-    //     const uid = req.params.uid;
-    //     const profile = req.session['profile'];
-    //     const userId = uid === "me" && profile ?
-    //         profile._id : uid;
-    //
-    //     LikeController.likeDao.findAllTuitsLikedByUser(userId)
-    //         .then(likes => {
-    //             const likesNonNullTuits =
-    //                 likes.filter(like => like.tuit);
-    //             const tuitsFromLikes =
-    //                 likesNonNullTuits.map(like => like.tuit);
-    //             res.json(tuitsFromLikes);
-    //         });
-    // }
+        // DislikeController.dislikeDao.findAllTuitsDislikedByUser(req.params.uid)
+        //     .then(dislikes => res.json(dislikes));
+    {
+        const uid = req.params.uid;
+        // @ts-ignore
+        const profile = req.session['profile'];
+        const userId = uid === "me" && profile ?
+            profile._id : uid;
+
+        DislikeController.dislikeDao.findAllTuitsDislikedByUser(userId)
+            .then(dislikes => {
+                const dislikesNonNullTuits =
+                    dislikes.filter(dislike => dislike.tuit);
+                const tuitsFromDislikes =
+                    dislikesNonNullTuits.map(dislike => dislike.tuit);
+                res.json(tuitsFromDislikes);
+            });
+    }
+
 
 
     userTogglesTuitDislikes = async (req: Request, res: Response) => {
