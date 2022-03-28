@@ -39,9 +39,9 @@ export default class DislikeController implements DislikeControllerI {
         if(DislikeController.dislikeController === null) {
             DislikeController.dislikeController = new DislikeController();
             app.get("/api/users/:uid/dislikes", DislikeController.dislikeController.findAllTuitsDislikedByUser);
-            // app.get("/api/tuits/:tid/dislikes", DislikeController.dislikeController.findAllUsersThatDislikedTuit);
-            // app.post("/api/users/:uid/dislikes/:tid",DislikeController.dislikeController.userDislikesTuit);
-            // app.delete("/api/users/:uid/dislikes/:tid", DislikeController.dislikeController.userUndislikesTuit);
+            app.get("/api/tuits/:tid/dislikes", DislikeController.dislikeController.findAllUsersThatDislikedTuit);
+            app.post("/api/users/:uid/dislikes/:tid",DislikeController.dislikeController.userDislikesTuit);
+            app.delete("/api/users/:uid/dislikes/:tid", DislikeController.dislikeController.userUndislikesTuit);
             app.put("/api/users/:uid/dislikes/:tid", DislikeController.dislikeController.userTogglesTuitDislikes);
         }
         return DislikeController.dislikeController;
@@ -127,8 +127,6 @@ export default class DislikeController implements DislikeControllerI {
             const userAlreadyDislikedTuit = await dislikeDao.findUserDislikesTuit(userId, tid);
             const howManyLikedTuit = await likeDao.countHowManyLikedTuit(tid);
             const howManyDislikedTuit = await dislikeDao.countHowManyDislikedTuit(tid);
-            // console.log(howManyLikedTuit)
-            // console.log(userId)
             let tuit = await tuitDao.findTuitById(tid);
             if (userAlreadyDislikedTuit) {
                 await dislikeDao.userUndislikesTuit(userId, tid);
@@ -145,7 +143,7 @@ export default class DislikeController implements DislikeControllerI {
             await tuitDao.updateLikes(tid, tuit.stats);
             res.sendStatus(200);
         } catch (e) {
-            // console.log(e);
+            console.log(e);
             res.sendStatus(404);
         }
     }

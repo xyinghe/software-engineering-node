@@ -23,6 +23,7 @@ import FollowController from "./controllers/FollowController";
 import BookmarkController from "./controllers/BookmarkController";
 import MessageController from "./controllers/MessageController";
 import AuthenticationController from "./controllers/AuthenticationController";
+import DislikeController from "./controllers/DislikeController";
 import mongoose from "mongoose";
 // connect to the database
 mongoose.connect(`mongodb+srv://xyinghe:node123@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
@@ -73,6 +74,7 @@ const followController = FollowController.getInstance(app);
 const bookmarkController = BookmarkController.getInstance(app);
 const messageController = MessageController.getInstance(app);
 const authenticationController = AuthenticationController.getInstance(app);
+const dislikeController = DislikeController.getInstance(app);
 // AuthenticationController(app);
 
 
