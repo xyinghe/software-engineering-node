@@ -1,13 +1,13 @@
 /**
- * @file Implements the data model to represent likes in the database
+ * @file Implements the data model to represent dislikes in the database
  */
 import mongoose, {Schema} from "mongoose";
 import Dislike from "../../models/dislikes/Dislike";
 
 /**
- * @typedef DislikeSchema Data model to represent likes in the database
- * @property {ObjectId} tuit the tuit is liked by the user
- * @property {ObjectId} likeBy the user who liked the tuit
+ * @typedef DislikeSchema Data model to represent dislikes in the database
+ * @property {ObjectId} tuit the tuit is disliked by the user
+ * @property {ObjectId} dislikeBy the user who disliked the tuit
  */
 const DislikeSchema = new mongoose.Schema<Dislike>({
     tuit: {type: Schema.Types.ObjectId, ref: "TuitModel"},

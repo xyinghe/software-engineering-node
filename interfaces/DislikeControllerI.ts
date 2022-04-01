@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
 /**
- * @file Declares RESTful Web service API for likes resource
+ * @file Declares RESTful Web service API for dislikes resource
  */
 export default interface DisikeControllerI {
     findAllUsersThatDislikedTuit (req: Request, res: Response): void;

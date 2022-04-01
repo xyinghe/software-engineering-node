@@ -1,5 +1,5 @@
 /**
- * @file Implements DAO managing data storage of likes. Uses mongoose LikeModel
+ * @file Implements DAO managing data storage of dislikes. Uses mongoose DislikeModel
  * to integrate with MongoDB
  */
 import DislikeDaoI from "../interfaces/DislikeDaoI";
@@ -7,15 +7,15 @@ import DislikeModel from "../mongoose/dislikes/DislikeModel";
 import Dislike from "../models/dislikes/Dislike"
 
 /**
- * @class LikeDao Implements Data Access Object managing data storage
- * of Likes
- * @property {LikeDao} LikeDao Private single instance of LikeDao
+ * @class DislikeDao Implements Data Access Object managing data storage
+ * of Dislikes
+ * @property {DislikeDao} DislikeDao Private single instance of DislikeDao
  */
 export default class DislikeDao implements DislikeDaoI {
     private static dislikeDao: DislikeDao | null = null;
     /**
      * Creates singleton DAO instance
-     * @returns LikeDao
+     * @returns DislikeDao
      */
     public static getInstance = (): DislikeDao => {
         if(DislikeDao.dislikeDao === null) {
@@ -26,7 +26,7 @@ export default class DislikeDao implements DislikeDaoI {
     private constructor() {}
 
     /**
-     * Uses LikeModel to retrieve all users who liked one tuit from likes collection
+     * Uses DislikeModel to retrieve all users who disliked one tuit from dislikes collection
      * @param {string} tid Tuit's primary key
      * @returns Promise To be notified when the users are retrieved from
      * database
@@ -38,7 +38,7 @@ export default class DislikeDao implements DislikeDaoI {
             .exec();
 
     /**
-     * Uses LikeModel to retrieve all tuits like by one user from likes collection
+     * Uses DislikeModel to retrieve all tuits disliked by one user from dislikes collection
      * @param {string} uid User's primary key
      * @returns Promise To be notified when the users are retrieved from
      * database
@@ -55,7 +55,7 @@ export default class DislikeDao implements DislikeDaoI {
             .exec();
 
     /**
-     * Inserts like instance into the database
+     * Inserts dislike instance into the database
      * @param {string} uid User's primary key
      * @param {string} tid  Tuit's primary key
      * @returns Promise To be notified when user is inserted into the database
@@ -64,7 +64,7 @@ export default class DislikeDao implements DislikeDaoI {
         DislikeModel.create({tuit: tid, dislikedBy: uid});
 
     /**
-     * Removes like instance from the database
+     * Removes dislike instance from the database
      * @param {string} uid User's primary key
      * @param {string} tid  Tuit's primary key
      * @returns Promise To be notified when user is inserted into the database
@@ -72,9 +72,20 @@ export default class DislikeDao implements DislikeDaoI {
     userUndislikesTuit = async (uid: string, tid: string): Promise<any> =>
         DislikeModel.deleteOne({tuit: tid, dislikedBy: uid});
 
+    /**
+     * Find if a user dislikes a tuit
+     * @param {string} uid User's primary key
+     * @param {string} tid  Tuit's primary key
+     * @returns Promise To be notified when the user dislikes the tuit
+     */
     findUserDislikesTuit = async (uid: string, tid: string): Promise<any> =>
         DislikeModel.findOne({tuit: tid, dislikedBy: uid});
 
+    /**
+     * Count how many dislikes a tuit has
+     * @param {string} tid Tuit's primary key
+     * @returns Promise To be notified when count is retrieved from that database
+     */
     countHowManyDislikedTuit = async (tid: string): Promise<any> =>
         DislikeModel.count({tuit: tid});
 }

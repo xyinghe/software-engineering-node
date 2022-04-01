@@ -35,7 +35,7 @@ app.use(cors({
     credentials: true,
     origin: 'http://localhost:3000'
 }));
-const SECRET = 'keyboard cat'
+const SECRET = 'secret SECRET'
 let sess = {
     secret: SECRET,
     proxy: false,

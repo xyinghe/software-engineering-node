@@ -114,7 +114,18 @@ export default class LikeController implements LikeControllerI {
             });
     }
 
-
+    /**
+     * Implement the like function, if a tuit is disliked, click like button will
+     * cause dislikes count -1, and like count +1;
+     * If a user already liked a tuit, click like button will remove the like,
+     * otherwise, like count +1.
+     * @param {Request} req Represents request from client, including the
+     * path parameters uid and tid representing the user that is liking the tuit
+     * and the tuit being liked
+     * @param {Response} res Represents response to client, including the
+     * body formatted as JSON containing the new likes that was inserted in the
+     * database
+     */
     userTogglesTuitLikes = async (req: Request, res: Response) => {
         const dislikeDao = LikeController.dislikeDao;
         const likeDao = LikeController.likeDao;
