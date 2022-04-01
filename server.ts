@@ -33,7 +33,8 @@ const app = express();
 app.use(express.json());
 app.use(cors({
     credentials: true,
-    origin: 'http://localhost:3000'
+    origin: 'https://phenomenal-cajeta-b97d25.netlify.app'
+    // http://localhost:3000
 }));
 const SECRET = 'secret SECRET'
 let sess = {
