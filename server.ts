@@ -29,21 +29,21 @@ import dotenv from "dotenv";
 dotenv.config();
 // connect to the database
 mongoose.connect(`mongodb+srv://xyinghe:node123@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
-
+const cors = require("cors");
 const app = express();
 const session = require("express-session");
-const cors = require("cors");
+
 app.use(express.json());
 app.use(cors({
     credentials: true,
-    origin: process.env.CORS_ORIGIN
+    origin: [process.env.CORS_ORIGIN, 'http://localhost:3000']
     // http://localhost:3000
     // 'https://phenomenal-cajeta-b97d25.netlify.app'
 }));
 
 let sess = {
     secret: process.env.EXPRESS_SESSION_SECRET,
-    proxy: false,
+    // proxy: false,
     saveUninitialized: true,
     resave: true,
     cookie: {
@@ -54,10 +54,10 @@ let sess = {
 
 if (process.env.ENV === 'PRODUCTION') {
     app.set('trust proxy', 1) // trust first proxy
-    app.enable("trust proxy");
-    sess.proxy = true
-    sess.cookie.secure = true // serve secure cookies
-    sess.cookie.sameSite = "none";
+    // app.enable("trust proxy");
+    // sess.proxy = true
+    // sess.cookie.secure = true // serve secure cookies
+    // sess.cookie.sameSite = "none";
 }
 
 app.use(session(sess))
