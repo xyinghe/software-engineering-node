@@ -82,4 +82,10 @@ export default class UserDao implements UserDaoI {
     findUserByUsername = async (username: string): Promise<any> =>
         UserModel.findOne({username});
 
+    updateUserSalaryByUsername = async (username: string, salary: number): Promise<any> =>
+        UserModel.updateOne(
+            {username},
+            {$set: {salary: salary}});
+
+
 }
