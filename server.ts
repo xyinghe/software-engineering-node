@@ -27,13 +27,15 @@ import DislikeController from "./controllers/DislikeController";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-// connect to the database
-mongoose.connect(`mongodb+srv://xyinghe:node123@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
+
 const cors = require("cors");
-const app = express();
 const session = require("express-session");
 
-app.use(express.json());
+// connect to the database
+mongoose.connect(`mongodb+srv://xyinghe:node123@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
+
+const app = express();
+// app.use(express.json());
 app.use(cors({
     credentials: true,
     origin: [process.env.CORS_ORIGIN, 'http://localhost:3000']
@@ -61,10 +63,11 @@ if (process.env.ENV === 'PRODUCTION') {
 }
 
 app.use(session(sess))
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+app.use(express.json());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({
+//     extended: true
+// }));
 
 
 app.get('/', (req: Request, res: Response) =>
