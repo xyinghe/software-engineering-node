@@ -25,24 +25,30 @@ import MessageController from "./controllers/MessageController";
 import AuthenticationController from "./controllers/AuthenticationController";
 import DislikeController from "./controllers/DislikeController";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
 // connect to the database
 mongoose.connect(`mongodb+srv://xyinghe:node123@cluster0.vu2ks.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`);
+
+const app = express();
 const session = require("express-session");
 const cors = require("cors");
-const app = express();
 app.use(express.json());
 app.use(cors({
     credentials: true,
-    origin: 'https://phenomenal-cajeta-b97d25.netlify.app'
+    origin: process.env.CORS_ORIGIN
     // http://localhost:3000
+    // 'https://phenomenal-cajeta-b97d25.netlify.app'
 }));
-const SECRET = 'secret SECRET'
+
 let sess = {
-    secret: SECRET,
+    secret: process.env.EXPRESS_SESSION_SECRET,
     proxy: false,
+    saveUninitialized: true,
+    resave: true,
     cookie: {
-        secure: false,
-        sameSite: "strict"
+        sameSite: process.env.NODE_ENV === "production" ? 'none' : 'lax',
+        secure: process.env.NODE_ENV === "production",
     }
 }
 
