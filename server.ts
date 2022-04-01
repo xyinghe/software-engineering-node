@@ -54,7 +54,7 @@ let sess = {
     }
 }
 
-if (process.env.ENV === 'PRODUCTION') {
+if (process.env.NODE_ENV === 'production') {
     app.set('trust proxy', 1) // trust first proxy
     // app.enable("trust proxy");
     // sess.proxy = true
